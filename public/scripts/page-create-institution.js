@@ -2,7 +2,9 @@
 const map = L.map('mapid').setView([-21.1778275,-47.8090555], 15)
 
 // CREATE AND ADD TITLELAYER
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map)
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
 
 // CREATE ICON
 const icon = L.icon({
