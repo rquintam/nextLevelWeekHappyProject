@@ -86,14 +86,11 @@ function deleteField(event) {
 
  function validate(event) {
   // CHECK IF LAT AND LNG CONTAIN VALUES
-  
-/*   const lat = document.querySelector('[name="lat"]').value
+  const lat = document.querySelector('[name="lat"]').value
   const lng = document.querySelector('[name="lng"]').value
-  console.log(lat)
 
-  if (location) {
-    event.preventDefault()
-    alert('Selecione um ponto no mapa')
-  } */
-  
+  if (lat && lng) return
+
+  alert('Selecione um ponto no mapa')
+  event.preventDefault()
  }

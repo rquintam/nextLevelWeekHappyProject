@@ -68,8 +68,9 @@ module.exports = {
         open_on_weekends: fields.open_on_weekends,
       })
 
+      const orphanageId = await db.all('SELECT id FROM orphanages ORDER BY id DESC LIMIT 1')
       // REDIRECT
-      return res.redirect('/orphanages')
+      return res.redirect(`/orphanage?id=${orphanageId[0].id}`)
     } catch (error) {
       console.log(error)
       return res.send('Erro no banco de dados')
