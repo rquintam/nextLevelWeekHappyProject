@@ -1,5 +1,5 @@
 const Database = require('./database/db');
-const saveOrphanage = require('./database/saveOrphanage');
+const saveInstitution = require('./database/saveInstitution');
 
 module.exports = {
   
@@ -7,19 +7,19 @@ module.exports = {
     return res.render('index')
   },
 
-  async orphanage(req, res) {
+  async institution(req, res) {
     const id = req.query.id
 
     try {
       const db = await Database;
-      const results = await db.all(`SELECT * FROM orphanages WHERE id = "${id}"`)
-      const orphanage = results[0]
+      const results = await db.all(`SELECT * FROM institutions WHERE id = "${id}"`)
+      const institution = results[0]
 
-      orphanage.images = orphanage.images.split(',')
-      orphanage.firstImage = orphanage.images[0]
-      orphanage.open_on_weekends = orphanage.open_on_weekends == '0' ? false : true
+      institution.images = institution.images.split(',')
+      institution.firstImage = institution.images[0]
+      institution.open_on_weekends = institution.open_on_weekends == '0' ? false : true
 
-      return res.render('orphanage', { orphanage })
+      return res.render('institution', { institution })
 
     } catch (error) { 
       console.log(error)
@@ -29,22 +29,22 @@ module.exports = {
     
   },
 
-  async orphanages(req, res) {
+  async institutions(req, res) {
     try {
       const db = await Database;
-      const orphanages = await db.all('SELECT * FROM orphanages')
-      return res.render('orphanages', { orphanages })
+      const institutions = await db.all('SELECT * FROM institutions')
+      return res.render('institutions', { institutions })
     } catch (error) {
       console.log(error)
       return res.send('Erro no banco de dados!')
     }
   },
 
-  createOrphanage(req, res) {
-    return res.render('create-orphanage')
+  createinstitution(req, res) {
+    return res.render('create-institution')
   },
 
-  async saveOrphanage(req, res) {
+  async saveInstitution(req, res) {
     //console.log(req.body)
     const fields = req.body
 
@@ -54,9 +54,9 @@ module.exports = {
     }
 
     try {
-      // SAVE ORPHANAGE
+      // SAVE institution
       const db = await Database
-      await saveOrphanage(db, {
+      await saveInstitution(db, {
         lat: fields.lat,
         lng: fields.lng,
         name: fields.name,
@@ -67,10 +67,10 @@ module.exports = {
         opening_hour: fields.opening_hour,
         open_on_weekends: fields.open_on_weekends,
       })
-
-      const orphanageId = await db.all('SELECT id FROM orphanages ORDER BY id DESC LIMIT 1')
+      
+      const institutionId = await db.all('SELECT id FROM institutions ORDER BY id DESC LIMIT 1')
       // REDIRECT
-      return res.redirect(`/orphanage?id=${orphanageId[0].id}`)
+      return res.redirect(`/institution?id=${institutionId[0].id}`)
     } catch (error) {
       console.log(error)
       return res.send('Erro no banco de dados')

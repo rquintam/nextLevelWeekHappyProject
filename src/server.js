@@ -17,10 +17,10 @@ server
 
   // CREATE APP ROUTES
   .get('/', pages.index)
-  .get('/orphanage', pages.orphanage)
-  .get('/orphanages', pages.orphanages)
-  .get('/create-orphanage', pages.createOrphanage)
-  .post('/save-orphanage', pages.saveOrphanage)
+  .get('/institution', pages.institution)
+  .get('/institutions', pages.institutions)
+  .get('/create-institution', pages.createinstitution)
+  .post('/save-institution', pages.saveInstitution)
 
 // START SERVER
 server.listen(5500)
